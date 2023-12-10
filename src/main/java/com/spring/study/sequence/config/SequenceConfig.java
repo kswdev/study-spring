@@ -1,6 +1,8 @@
 package com.spring.study.sequence.config;
 
 import com.spring.study.sequence.dao.SequenceDao;
+import com.spring.study.sequence.pojo.Sequence;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -23,6 +25,11 @@ import org.springframework.context.annotation.FilterType;
 )
 @Configuration
 public class SequenceConfig {
+
+    @Bean
+    public Sequence uniqueSequence() {
+        return new Sequence();
+    }
 
     private final SequenceDao sequenceDao;
     public SequenceConfig(SequenceDao sequenceDao) {
