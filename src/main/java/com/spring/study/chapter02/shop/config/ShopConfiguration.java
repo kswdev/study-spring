@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 
 @Configuration
@@ -19,6 +20,15 @@ public class ShopConfiguration {
 
     @Value("classpath:banner.txt")
     private Resource banner;
+
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource =
+                new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:message");
+        messageSource.setCacheSeconds(1);
+        return messageSource;
+    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer
