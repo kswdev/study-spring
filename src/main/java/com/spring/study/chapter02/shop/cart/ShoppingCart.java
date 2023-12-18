@@ -1,6 +1,7 @@
 package com.spring.study.chapter02.shop.cart;
 
 import com.spring.study.chapter02.shop.product.Product;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Component
 @Scope("prototype")
+@Lazy
 public class ShoppingCart {
     private List<Product> items = new ArrayList<>();
 

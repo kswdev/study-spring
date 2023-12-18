@@ -1,6 +1,5 @@
 package com.spring.study.chapter02.shop;
 
-import com.spring.study.chapter02.shop.banner.BannerLoader;
 import com.spring.study.chapter02.shop.cart.ShoppingCart;
 import com.spring.study.chapter02.shop.config.ShopConfiguration;
 import com.spring.study.chapter02.shop.product.Product;
