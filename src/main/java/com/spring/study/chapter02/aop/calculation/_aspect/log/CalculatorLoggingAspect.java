@@ -1,10 +1,16 @@
 package com.spring.study.chapter02.aop.calculation._aspect.log;
 
+import com.spring.study.chapter02.aop.calculation.calculator.MaxCalculator;
+import com.spring.study.chapter02.aop.calculation.calculator.MaxCalculatorImpl;
+import com.spring.study.chapter02.aop.calculation.calculator.MinCalculator;
+import com.spring.study.chapter02.aop.calculation.calculator.MinCalculatorImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.DeclareParents;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -77,4 +83,16 @@ public class CalculatorLoggingAspect {
             throw e;
         }
     }
+
+    @DeclareParents(
+            value = "com.spring.study.chapter02.aop.calculation._interface.ArithmeticCalculatorImpl",
+            defaultImpl = MaxCalculatorImpl.class
+    )
+    public MaxCalculator maxCalculator;
+
+    @DeclareParents(
+            value = "com.spring.study.chapter02.aop.calculation._interface.ArithmeticCalculatorImpl",
+            defaultImpl = MinCalculatorImpl.class
+    )
+    public MinCalculator minCalculator;
 }
