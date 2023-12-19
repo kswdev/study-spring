@@ -1,5 +1,6 @@
 package com.spring.study.chapter02.aop.example;
 
+import com.spring.study.chapter02.aop.add_status._interface.Counter;
 import com.spring.study.chapter02.aop.calculation._interface.ArithmeticCalculator;
 import com.spring.study.chapter02.aop.calculation._interface.UnitCalculator;
 import com.spring.study.chapter02.aop.config.CalculatorConfiguration;
@@ -18,5 +19,8 @@ public class AspectExample {
         UnitCalculator unitCalculator =
                 context.getBean("unitCalculator", UnitCalculator.class);
         unitCalculator.kilogramToPound(1);
+
+        Counter arithmeticCounter = (Counter) arithmeticCalculator;
+        System.out.println(arithmeticCounter.getCount());
     }
 }
