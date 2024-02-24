@@ -5,9 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -50,30 +47,5 @@ public class AccountRepositoryImpl implements AccountRepository {
         return em.createQuery("SELECT a FROM Account a WHERE a.accountNo = :accountNo", Account.class)
                 .setParameter("accountNo", accountNo)
                 .getResultList();
-    }
-
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-        EntityManager em = emf.createEntityManager();
-        AccountRepository repository = new AccountRepositoryImpl(em);
-
-        Account account = new Account();
-        account.setAccountNo("EXISTING_ACCOUNT_NO");
-        account.setBalance(0.2);
-
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        try {
-            repository.createAccount(account);
-            tx.commit();
-        } catch (Exception e){
-            e.printStackTrace();
-            tx.rollback();
-        } finally {
-            em.close();
-        }
-
-        emf.close();
     }
 }
