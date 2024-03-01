@@ -11,8 +11,9 @@ public class CourtConfiguration {
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
+        System.out.println("생성!");
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/");
+        viewResolver.setPrefix("/web/WEB-INF/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }

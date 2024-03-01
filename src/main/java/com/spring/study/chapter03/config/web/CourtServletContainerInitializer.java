@@ -4,6 +4,7 @@ package com.spring.study.chapter03.config.web;
 import com.spring.study.chapter03.config.CourtConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/*
 public class CourtServletContainerInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -12,6 +13,7 @@ public class CourtServletContainerInitializer extends AbstractAnnotationConfigDi
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
+        System.out.println("chapter3");
         return new Class[] {CourtConfiguration.class};
     }
 
@@ -20,3 +22,4 @@ public class CourtServletContainerInitializer extends AbstractAnnotationConfigDi
         return new String[] {"/"};
     }
 }
+*/

@@ -8,5 +8,5 @@ public interface AccountRepository {
     void createAccount(Account account);
     void updateAccount(Account account);
     void removeAccount(Account account);
-    List<Account> findAccount(String accountNo);
+    Account findAccount(String accountNo);
 }

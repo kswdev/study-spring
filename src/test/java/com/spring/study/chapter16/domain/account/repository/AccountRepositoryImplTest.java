@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,9 +32,7 @@ class AccountRepositoryImplTest {
         accountRepository = new AccountRepositoryImpl(em);
         tx.begin();
 
-        Account account = new Account();
-        account.setAccountNo(EXISTING_ACCOUNT_NO);
-        account.setBalance(0.2);
+        Account account = new Account(EXISTING_ACCOUNT_NO, 0.2);
 
         accountRepository.createAccount(account);
     }
@@ -49,24 +46,23 @@ class AccountRepositoryImplTest {
 
     @Test
     void accountExists() {
-        assertEquals(1, accountRepository.findAccount(EXISTING_ACCOUNT_NO).size());
-        assertEquals(0, accountRepository.findAccount(NEW_ACCOUNT_NO).size());
+        Account account = new Account(EXISTING_ACCOUNT_NO, 0.2);
+
+        assertEquals(account, accountRepository.findAccount(EXISTING_ACCOUNT_NO));
+        assertNull(accountRepository.findAccount(NEW_ACCOUNT_NO));
     }
 
     @Test
     void createNewAccount() {
         Account account = new Account(NEW_ACCOUNT_NO, 0.2);
         accountRepository.createAccount(account);
-        assertEquals(accountRepository.findAccount(account.getAccountNo()).get(0), account);
+        assertEquals(accountRepository.findAccount(account.getAccountNo()), account);
     }
 
     @Test
     void createDuplicateAccount() {
-        Account account = new Account();
-        account.setAccountNo(EXISTING_ACCOUNT_NO);
-        account.setBalance(0.2);
-
-        assertEquals(1, accountRepository.findAccount(EXISTING_ACCOUNT_NO).size());
+        Account account = new Account(EXISTING_ACCOUNT_NO, 0.2);
+        assertEquals(account, accountRepository.findAccount(EXISTING_ACCOUNT_NO));
         assertThrows(IllegalArgumentException.class,
                 () -> accountRepository.createAccount(account));
     }
