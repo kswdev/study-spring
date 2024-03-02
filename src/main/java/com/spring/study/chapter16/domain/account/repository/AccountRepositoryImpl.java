@@ -2,18 +2,22 @@ package com.spring.study.chapter16.domain.account.repository;
 
 import com.spring.study.chapter16.domain.account.entity.Account;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Repository
+@Repository("accountRepository")
 public class AccountRepositoryImpl implements AccountRepository {
 
-    private final EntityManager em;
+    @Setter
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void createAccount(Account account) {
@@ -22,7 +26,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             throw new IllegalArgumentException("이미 있는 계좌입니다.");
         }
 
-        em.persist(account);
+        entityManager.persist(account);
     }
 
     @Override
@@ -32,7 +36,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             throw new NoSuchElementException("없는 계좌입니다.");
         }
 
-        em.merge(account);
+        entityManager.merge(account);
     }
 
     @Override
@@ -42,12 +46,12 @@ public class AccountRepositoryImpl implements AccountRepository {
             throw new NoSuchElementException("없는 계좌입니다.");
         }
 
-        em.remove(account);
+        entityManager.remove(account);
     }
 
     @Override
     public Account findAccount(String accountNo) {
-        List<Account> accountList = em.createQuery("SELECT a FROM Account a WHERE a.accountNo = :accountNo", Account.class)
+        List<Account> accountList = entityManager.createQuery("SELECT a FROM Account a WHERE a.accountNo = :accountNo", Account.class)
                 .setParameter("accountNo", accountNo)
                 .getResultList();
 

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Import(value = {HibernateConfig.class})
+@Import(value = {JpaConfig.class})
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.spring.study.chapter16")

@@ -1,39 +1,33 @@
 package com.spring.study.chapter16.domain.account.service;
 
+import com.spring.study.chapter16.config.ServletConfig;
 import com.spring.study.chapter16.domain.account.repository.AccountRepository;
 import com.spring.study.chapter16.domain.account.repository.AccountRepositoryImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ContextConfiguration(classes = ServletConfig.class)
+@ExtendWith(SpringExtension.class)
 class AccountServiceImplTest {
 
     private static final String TEST_ACCOUNT_NO = "1234";
 
-    private EntityManagerFactory emf;
-    private EntityManager em;
-    private EntityTransaction tx;
+    @Autowired
     private AccountService accountService;
 
 
     @BeforeEach
     public void init() {
-        emf = Persistence.createEntityManagerFactory("hello");
-        em = emf.createEntityManager();
-        tx = em.getTransaction();
-        AccountRepository accountRepository = new AccountRepositoryImpl(em);
-
-        accountService = new AccountServiceImpl(accountRepository);
-
-        tx.begin();
-
+        AccountRepositoryImpl repository = new AccountRepositoryImpl();
+        repository.setEntityManager(Persistence.createEntityManagerFactory("hello").createEntityManager());
         accountService.createAccount(TEST_ACCOUNT_NO);
         accountService.deposit(TEST_ACCOUNT_NO, 100);
     }
@@ -48,12 +42,5 @@ class AccountServiceImplTest {
     void withDraw() {
         accountService.withdraw(TEST_ACCOUNT_NO, 50);
         assertEquals(50, accountService.getBalance(TEST_ACCOUNT_NO), 0);
-    }
-
-    @AfterEach
-    void cleanup() {
-        tx.commit();
-        em.close();
-        emf.close();
     }
 }

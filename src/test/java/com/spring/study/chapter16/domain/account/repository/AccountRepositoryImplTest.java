@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class AccountRepositoryImplTest {
 
-    private AccountRepository accountRepository;
+    private AccountRepositoryImpl accountRepository;
     private EntityManagerFactory emf;
     private EntityManager em;
     private EntityTransaction tx;
@@ -29,7 +29,8 @@ class AccountRepositoryImplTest {
         emf = Persistence.createEntityManagerFactory("hello");
         em  = emf.createEntityManager();
         tx  = em.getTransaction();
-        accountRepository = new AccountRepositoryImpl(em);
+        accountRepository = new AccountRepositoryImpl();
+        accountRepository.setEntityManager(em);
         tx.begin();
 
         Account account = new Account(EXISTING_ACCOUNT_NO, 0.2);
