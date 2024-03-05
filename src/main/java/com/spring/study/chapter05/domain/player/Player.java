@@ -1,5 +1,10 @@
 package com.spring.study.chapter05.domain.player;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Getter
 public class Player {
     private String name;
     private String phone;

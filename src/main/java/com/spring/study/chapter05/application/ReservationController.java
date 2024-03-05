@@ -5,10 +5,13 @@ import com.spring.study.chapter05.domain.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -24,7 +27,7 @@ public class ReservationController {
 
     @GetMapping
     public String home() {
-        return "welcome";
+        return "index";
     }
 
 /*    @PostMapping
@@ -111,7 +114,7 @@ public class ReservationController {
     }*/
 
     @GetMapping("/find")
-    public ResponseBodyEmitter find(
+    public ResponseEntity<ResponseBodyEmitter> find(
             @RequestParam("courtName") String courtName
     ) {
         final ResponseBodyEmitter emitter = new ResponseBodyEmitter();
@@ -123,6 +126,35 @@ public class ReservationController {
                 for (Reservation reservation : reservations) {
                     log.info("reservation: {}", reservation);
                     emitter.send(reservation);
+                }
+                emitter.complete();
+            } catch (IOException e) {
+                emitter.completeWithError(e);
+            }
+        });
+        log.info("third: [{}] ", getCurrentThreadName());
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .header("Accept", "TEST Value")
+                .body(emitter);
+    }
+
+    @GetMapping("/sse/find")
+    public SseEmitter sseFind(
+            @RequestParam("courtName") String courtName
+    ) {
+        final SseEmitter emitter = new SseEmitter();
+        taskExecutor.execute(() -> {
+            Collection<Reservation> reservations = reservationService.query(courtName);
+            try {
+                for (Reservation reservation : reservations) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {}
+                    emitter.send(
+                            SseEmitter.event()
+                                    .id(String.valueOf(reservation.hashCode()))
+                                    .data(reservation)
+                    );
                 }
                 emitter.complete();
             } catch (IOException e) {

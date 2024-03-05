@@ -119,8 +119,6 @@ Ysrc/main/java/com/spring/study/chapter16/domain/account/repository/AccountRepos
 _src/test/java/com/spring/study/chapter16/domain/account/service/AccountServiceImplMockTest.java,9\5\9542405459d6866d7d2b3a620dbf33674e64d7a4
 è
 _src/test/java/com/spring/study/chapter16/domain/account/service/AccountServiceImplStubTest.java,a\d\ad4e041e2915eccb22bffab2244951fc331cfab5
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 x
 Hsrc/main/java/com/spring/study/chapter16/application/TestController.java,7\f\7fac5e87cc6bff2ffcb344ebeac206c61bec32f8
 ç
@@ -166,12 +164,6 @@ o
 n
 >src/main/java/com/spring/study/chapter05/config/JpaConfig.java,c\7\c7f5175b1ad5b6a3e83a4e1ce8f1c61dd786c617
 v
-Fsrc/main/java/com/spring/study/chapter05/config/WebAppInitializer.java,7\0\70db6865112556dc65f5a74dec844b2a4a6ef01e
-v
 Fsrc/main/java/com/spring/study/chapter16/config/WebAppInitializer.java,2\c\2ce94ab63a0cc161a375806e1680ae8fa163915a
-u
-Esrc/main/java/com/spring/study/chapter05/domain/sports/SportType.java,9\6\9638040ec47ff059eabe78ba4c4efa0a7ea46b2f
-r
-Bsrc/main/java/com/spring/study/chapter05/domain/player/Player.java,c\7\c74b37339b8f317696b50383220bd7a338610c4a
 v
 Fsrc/main/java/com/spring/study/chapter05/config/aop/LoggingConfig.java,6\e\6e2d8e37c332e88613294286d6a3893461aa5c80
