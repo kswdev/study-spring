@@ -2,8 +2,8 @@ package com.spring.study.chapter05.application;
 
 import com.spring.study.chapter05.domain.reservation.Reservation;
 import com.spring.study.chapter05.domain.reservation.service.ReservationService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +16,28 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.Collection;
 
-@RequiredArgsConstructor
+
 @Slf4j
 @Controller
 public class ReservationController {
 
     private final ReservationService reservationService;
     //private final AsyncListenableTaskExecutor asyncListenableTaskExecutor;
+
+
     private final TaskExecutor taskExecutor;
+
+    public ReservationController(
+            ReservationService reservationService,
+            @Qualifier("mvcTaskExecutor")TaskExecutor taskExecutor
+    ) {
+        this.reservationService = reservationService;
+        this.taskExecutor = taskExecutor;
+    }
 
     @GetMapping
     public String home() {
-        return "index";
+        return "echo";
     }
 
 /*    @PostMapping
