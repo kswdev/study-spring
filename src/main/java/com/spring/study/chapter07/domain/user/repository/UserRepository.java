@@ -1,8 +1,9 @@
 package com.spring.study.chapter07.domain.user.repository;
 
-import org.springframework.stereotype.Repository;
+import com.spring.study.chapter07.domain.user.entity.User;
 
-@Repository
 public interface UserRepository {
 
+    User findByName(String userName);
+    User save(User user);
 }

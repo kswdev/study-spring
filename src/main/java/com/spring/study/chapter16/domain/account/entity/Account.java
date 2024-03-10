@@ -8,8 +8,7 @@ import java.util.Objects;
 
 @SequenceGenerator(
         name = "ACCOUNT_SEQ_GENERATOR",
-        sequenceName = "ACCOUNT_SEQ",
-        initialValue = 1, allocationSize = 50
+        sequenceName = "ACCOUNT_SEQ"
 )
 @Entity
 @Getter @Setter
