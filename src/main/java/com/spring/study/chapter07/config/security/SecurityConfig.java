@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @RequiredArgsConstructor
 @Configuration
@@ -26,16 +27,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        /*auth.inMemoryAuthentication()
+                .withUser("userId").password("userPwd").authorities("USER")
+                .and()
+                .withUser("adminId").password("adminPwd").authorities("ADMIN");*/
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
+        repo.setSessionAttributeName("csrf_token");
+        repo.setParameterName("csrf_token");
+
+        http.csrf().csrfTokenRepository(repo);
         http.authorizeHttpRequests()
-                .antMatchers("/").hasAuthority("USER")
+                .antMatchers("/todos*").hasAuthority("USER")
                 .antMatchers(HttpMethod.DELETE, "/todos*").hasAuthority("ADMIN")
                 .and()
-                    .formLogin()
+                    .formLogin().loginPage(("/login"))
                 .and()
-                    .csrf().disable();
+                    .csrf();
     }
 }

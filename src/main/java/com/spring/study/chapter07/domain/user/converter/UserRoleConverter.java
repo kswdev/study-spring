@@ -1,11 +1,10 @@
 package com.spring.study.chapter07.domain.user.converter;
 
 import com.spring.study.chapter07.domain.user.dto.sercurity.RoleType;
-import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.AttributeConverter;
-import java.util.List;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
