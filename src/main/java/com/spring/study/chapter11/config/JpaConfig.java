@@ -5,6 +5,10 @@ import org.hibernate.dialect.H2Dialect;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -40,6 +44,27 @@ public class JpaConfig {
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+
+    @Bean
+    public DataSourceInitializer dataSourceInitializer() {
+        DataSourceInitializer initializer = new DataSourceInitializer();
+        initializer.setDataSource(dataSource());
+        initializer.setDatabasePopulator(databasePopulator());
+        return initializer;
+    }
+
+    public DatabasePopulator databasePopulator() {
+        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        databasePopulator.setContinueOnError(true);
+        databasePopulator.addScript(
+                new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
+        databasePopulator.addScript(
+                new ClassPathResource("db/initdb.d/create_table.sql"));
+        databasePopulator.addScript(
+                new ClassPathResource("db/initdb.d/insert_data.sql"));
+
+        return databasePopulator;
     }
 
     @Bean

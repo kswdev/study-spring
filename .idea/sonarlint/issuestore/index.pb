@@ -229,8 +229,6 @@ v
 Fsrc/main/java/com/spring/study/chapter16/config/WebAppInitializer.java,2\c\2ce94ab63a0cc161a375806e1680ae8fa163915a
 {
 Ksrc/main/java/com/spring/study/chapter16/domain/account/entity/Account.java,c\6\c674535cc235a886523aca7b9fc3ba406b47ba40
-n
->src/main/java/com/spring/study/chapter07/config/JpaConfig.java,8\b\8b9d802ba487e00498305bfd417532b9e86b51fb
 o
 ?src/main/java/com/spring/study/chapter07/config/RootConfig.java,4\2\42b7f52b0d1c764aaa399d468f1cd3c6db379ce5
 ‡
@@ -257,3 +255,9 @@ Usrc/main/java/com/spring/study/chapter07/domain/user/converter/UserRoleConverte
 Ssrc/main/java/com/spring/study/chapter07/domain/user/service/UserDetailService.java,0\9\09b44b97aaf031aa56ff27869a3e979dc2a9b465
 €
 Psrc/main/java/com/spring/study/chapter07/domain/user/dto/sercurity/RoleType.java,5\c\5c4e22f9fb9cec7f5ef5af3605feeb087986dd24
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+v
+Fsrc/main/java/com/spring/study/chapter07/config/WebAppInitializer.java,d\0\d082f8ab086ccfd7d92027e9bb917816dcd6ad43
+o
+?src/main/java/com/spring/study/chapter11/config/RootConfig.java,0\2\02073428202210a2cc34965f20452ef8deaefc06

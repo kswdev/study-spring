@@ -11,7 +11,7 @@ import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
-public class WebAppInitializer implements WebApplicationInitializer {
+/*public class WebAppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) {
 
@@ -48,4 +48,4 @@ public class WebAppInitializer implements WebApplicationInitializer {
         filter.addMappingForServletNames(null, false, "dispatcher");
         // Filter 설정 -e
     }
-}
+}*/
