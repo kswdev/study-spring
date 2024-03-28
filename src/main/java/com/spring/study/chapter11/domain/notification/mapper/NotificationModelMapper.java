@@ -17,8 +17,8 @@ public interface NotificationModelMapper {
     NotificationModelMapper INSTANCE = Mappers.getMapper(NotificationModelMapper.class);
 
     // 필드명이 같지 않거나 custom하게 매핑해주기 위해서는 @Mapping을 추가해주면 됩니다.
-    @Mapping(target = "uuid", source = "bookingEntity.userEntity.uuid")
     @Mapping(target = "text", source = "bookingEntity.startedAt", qualifiedByName = "text")
+    @Mapping(target = "uuid", source = "bookingEntity.userEntity.uuid")
     NotificationEntity toNotificationEntity(BookingEntity bookingEntity, NotificationEvent event);
 
     // 알람 보낼 메시지 생성

@@ -36,7 +36,5 @@ public class UserEntity extends BaseEntity {
             uuid = String.valueOf(meta.get("uuid"));
         }
         return uuid;
-
     }
-
 }

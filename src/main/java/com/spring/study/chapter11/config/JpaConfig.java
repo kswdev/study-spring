@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.dialect.H2Dialect;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
@@ -18,9 +19,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-@EnableBatchProcessing
 @EnableTransactionManagement
 @Configuration
+@ComponentScan(basePackages = "com.spring.study.chapter11.batch.job")
 public class JpaConfig {
 
     @Bean
@@ -73,7 +74,7 @@ public class JpaConfig {
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setJdbcUrl("jdbc:h2:tcp://localhost/~/test");
+        dataSource.setJdbcUrl("jdbc:h2:tcp://localhost:1521/test");
         return dataSource;
     }
 }
