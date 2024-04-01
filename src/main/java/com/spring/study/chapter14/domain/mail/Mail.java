@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @Getter
-public class Mail {
+public class Mail implements Serializable {
 
     private String mailId;
     private String country;

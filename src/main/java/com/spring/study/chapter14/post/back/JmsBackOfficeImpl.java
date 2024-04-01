@@ -14,6 +14,10 @@ public class JmsBackOfficeImpl extends JmsGatewaySupport implements BackOffice{
 
     @Override
     public Mail receiveMail() {
+
+        assert getJmsTemplate() != null;
+        return (Mail) getJmsTemplate().receiveAndConvert();
+
         /*assert getJmsTemplate() != null;
         MapMessage message = (MapMessage) getJmsTemplate().receive();
 
@@ -32,6 +36,7 @@ public class JmsBackOfficeImpl extends JmsGatewaySupport implements BackOffice{
         } catch (JMSException ignored) {}
         return null;*/
 
+        /*
         assert getJmsTemplate() != null;
         Map map = (Map) getJmsTemplate().receiveAndConvert();
         Mail mail = Mail.builder()
@@ -41,5 +46,6 @@ public class JmsBackOfficeImpl extends JmsGatewaySupport implements BackOffice{
                 .build();
 
         return mail;
+        */
     }
 }

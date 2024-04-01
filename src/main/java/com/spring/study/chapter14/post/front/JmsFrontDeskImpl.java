@@ -14,6 +14,7 @@ public class JmsFrontDeskImpl extends JmsGatewaySupport implements FrontDesk{
     @Override
     public void sendMail(final Mail mail) {
         assert getJmsTemplate() != null;
+        getJmsTemplate().convertAndSend(mail);
 
         /*  message 객체에 직접 세팅
         getJmsTemplate().send(session -> {
@@ -25,11 +26,12 @@ public class JmsFrontDeskImpl extends JmsGatewaySupport implements FrontDesk{
         });
         */
 
-        // Map <-> MapMessage 변환을 처리하는 convertAndSend()
+        /*  Map <-> MapMessage 변환을 처리하는 convertAndSend()
         Map<String, Object> map = new HashMap<>();
         map.put("mailId", mail.getMailId());
         map.put("country", mail.getCountry());
         map.put("weight", mail.getWeight());
         getJmsTemplate().convertAndSend(map);
+        */
     }
 }

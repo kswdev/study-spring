@@ -2,8 +2,7 @@ package com.spring.study.chapter14.config;
 
 import com.spring.study.chapter14.post.back.BackOffice;
 import com.spring.study.chapter14.post.back.JmsBackOfficeImpl;
-import com.spring.study.chapter14.post.back.NotJmsBackOfficeImpl;
-import com.spring.study.chapter14.post.front.JmsFrontDeskImpl;
+import com.spring.study.chapter14.post.converter.MailMessageConverter;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +31,13 @@ public class BackOfficeConfiguration {
         jmsTemplate.setConnectionFactory(connectionFactory());
         jmsTemplate.setReceiveTimeout(10000);
         jmsTemplate.setDefaultDestination(destination());
+        jmsTemplate.setMessageConverter(mailMessageConverter());
         return jmsTemplate;
+    }
+
+    @Bean
+    public MailMessageConverter mailMessageConverter() {
+        return new MailMessageConverter();
     }
 
     @Bean
