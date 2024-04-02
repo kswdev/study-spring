@@ -3,6 +3,7 @@ package com.spring.study.chapter14.post.back;
 import com.spring.study.chapter14.domain.mail.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.core.support.JmsGatewaySupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class JmsBackOfficeImpl extends JmsGatewaySupport implements BackOffice{
 
 
+    @Transactional
     @Override
     public Mail receiveMail() {
 

@@ -2,22 +2,30 @@ package com.spring.study.chapter14.config;
 
 import com.spring.study.chapter14.post.back.BackOffice;
 import com.spring.study.chapter14.post.back.JmsBackOfficeImpl;
+import com.spring.study.chapter14.post.back.MailListener;
 import com.spring.study.chapter14.post.converter.MailMessageConverter;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.SimpleMessageListenerContainer;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 
+@EnableJms
 @Configuration
 public class BackOfficeConfiguration {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new ActiveMQConnectionFactory("tcp://localhost:61616");
+
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+        activeMQConnectionFactory.setTrustAllPackages(true);
+        return activeMQConnectionFactory;
     }
 
     @Bean
@@ -33,6 +41,19 @@ public class BackOfficeConfiguration {
         jmsTemplate.setDefaultDestination(destination());
         jmsTemplate.setMessageConverter(mailMessageConverter());
         return jmsTemplate;
+    }
+
+    @Bean
+    public MailListener mailListener() {
+        return new MailListener();
+    }
+
+    @Bean
+    public SimpleJmsListenerContainerFactory jmsListenerContainerFactory() {
+        SimpleJmsListenerContainerFactory listenerContainerFactory =
+                new SimpleJmsListenerContainerFactory();
+        listenerContainerFactory.setConnectionFactory(connectionFactory());
+        return listenerContainerFactory;
     }
 
     @Bean

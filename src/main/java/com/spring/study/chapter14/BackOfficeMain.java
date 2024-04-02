@@ -13,8 +13,8 @@ public class BackOfficeMain {
         ApplicationContext context
                 = new AnnotationConfigApplicationContext(BackOfficeConfiguration.class);
 
-        BackOffice backOffice = context.getBean(BackOffice.class);
+ /*       BackOffice backOffice = context.getBean(BackOffice.class);
         Mail mail = backOffice.receiveMail();
-        System.out.println("Mail #" + mail.getMailId() + " received");
+        System.out.println("Mail #" + mail.getMailId() + " received");*/
     }
 }

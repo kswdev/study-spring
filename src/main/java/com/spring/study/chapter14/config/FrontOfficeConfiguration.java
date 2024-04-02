@@ -1,5 +1,6 @@
 package com.spring.study.chapter14.config;
 
+import com.spring.study.chapter14.post.converter.MailMessageConverter;
 import com.spring.study.chapter14.post.front.FrontDesk;
 import com.spring.study.chapter14.post.front.JmsFrontDeskImpl;
 import com.spring.study.chapter14.post.front.NotJmsFrontDeskImpl;
@@ -8,9 +9,12 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
+
+
 
 @Configuration
 public class FrontOfficeConfiguration {
@@ -22,7 +26,9 @@ public class FrontOfficeConfiguration {
 
     @Bean
     public Queue destination() {
+
         return new ActiveMQQueue("mail.queue");
+        //return new ActiveMQQueue("recipe-15-2");
     }
 
     @Bean
@@ -31,6 +37,7 @@ public class FrontOfficeConfiguration {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory());
         jmsTemplate.setDefaultDestination(destination());
+        jmsTemplate.setMessageConverter(new MailMessageConverter());
         return jmsTemplate;
     }
 
